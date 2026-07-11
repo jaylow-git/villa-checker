@@ -1,0 +1,82 @@
+name: Villa Park daily check
+
+on:
+  schedule:
+    # 07:00 UK time regardless of BST/GMT: fire at both 06:00 and 07:00 UTC,
+    # then the gate step below keeps exactly one of them based on the current
+    # UK UTC offset (BST=+0100 -> the 06:00 UTC run, GMT=+0000 -> 07:00 UTC).
+    - cron: '0 6 * * *'
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      send_notification:
+        description: Send the ntfy notification (untick to only refresh events.json)
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: villa-park-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate on 07:00 UK time
+        id: gate
+        env:
+          FIRED_CRON: ${{ github.event.schedule }}
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          offset=$(TZ=Europe/London date +%z)
+          if { [ "$offset" = "+0100" ] && [ "$FIRED_CRON" = "0 6 * * *" ]; } || \
+             { [ "$offset" = "+0000" ] && [ "$FIRED_CRON" = "0 7 * * *" ]; }; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping: this cron entry is the wrong one for the current UK offset ($offset)."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check out repository
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check events and notify
+        if: steps.gate.outputs.run == 'true'
+        env:
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && \
+             [ "${{ inputs.send_notification }}" = "false" ]; then
+            python scripts/check_events.py --no-notify
+          else
+            python scripts/check_events.py
+          fi
+
+      - name: Commit updated events.json
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/events.json
+          if git diff --cached --quiet; then
+            echo "events.json unchanged, nothing to commit."
+          else
+            git commit -m "Update Villa Park events data"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
