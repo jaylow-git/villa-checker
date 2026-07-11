@@ -203,12 +203,15 @@ def build_notification(todays_events, warnings):
         lines = []
         for event in todays_events:
             when = event["time_local"]
-            lines.append(f"{event['name']} — starts {when}" if when != "TBC" else f"{event['name']} — time TBC")
+            if when != "TBC":
+                lines.append(f"AW SHIT! The fucking Villa's on today at {when}! {event['name']}")
+            else:
+                lines.append(f"AW SHIT! The fucking Villa's on today! {event['name']} (time TBC)")
         body = "\n".join(lines)
         if warnings:
             body += "\n(" + "; ".join(warnings) + ")"
         return ("Villa Park event TODAY — move the car!", body, "high", "rotating_light,stadium")
-    body = "No events at Villa park today"
+    body = "No villa games today \U0001f389Thank Fuck!!"
     if warnings:
         body += "\n(" + "; ".join(warnings) + ")"
     return ("Villa Park", body, "default", "white_check_mark")
