@@ -7,7 +7,7 @@ events at the ground.
 ## How it works
 
 ```
-GitHub Actions cron (07:00 UK, DST-proof)
+GitHub Actions cron (first firing after 06:45 UK, retries hourly)
         │
         ▼
 scripts/check_events.py
@@ -15,20 +15,24 @@ scripts/check_events.py
   ├─ Ticketmaster Discovery API ── other events at the Villa Park venue
   ├─ merge + sort ──▶ docs/events.json  (committed back to the repo)
   └─ ntfy ──▶ push notification:
-        · event today  → name + start time (high priority)
-        · nothing on   → "No events at Villa park today"
+        · event today  → "AW SHIT! ..." + start time (high priority)
+        · nothing on   → "No villa games today 🎉Thank Fuck!!"
 ```
 
 API keys are only ever used inside the Action. The web page reads the
 pre-generated `docs/events.json`, so nothing secret reaches the browser.
 
-### 07:00 UK without DST drift
+### Morning schedule that survives GitHub cron flakiness
 
-GitHub cron runs in UTC and UK clocks flip between GMT and BST. The workflow
-fires at **both** 06:00 and 07:00 UTC, and a gate step keeps exactly one run:
-the 06:00 UTC firing when the UK is on BST (+0100), the 07:00 UTC firing when
-on GMT (+0000). The gate checks which cron entry fired rather than the wall
-clock, so late cron starts (common on GitHub) don't cause a missed day.
+GitHub's `schedule` trigger is best-effort: firings are routinely hours late
+and sometimes dropped altogether (worst at minute :00). So instead of one
+carefully-timed firing, the workflow schedules **four attempts** (05:50,
+06:50, 07:50 and 08:50 UTC) and a gate step runs the check on the first
+firing that lands after 06:45 UK, skipping the rest. "Already ran today" is
+detected from the `updated_utc` date in `docs/events.json`, which every run
+commits. This also handles BST/GMT automatically — no cron entry is tied to
+a UTC offset. If you manually run the workflow before 06:45 UK, that counts
+as the day's check and the scheduled attempts will skip.
 
 ### Ticketmaster venue ID
 

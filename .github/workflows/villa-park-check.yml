@@ -2,11 +2,16 @@ name: Villa Park daily check
 
 on:
   schedule:
-    # 07:00 UK time regardless of BST/GMT: fire at both 06:00 and 07:00 UTC,
-    # then the gate step below keeps exactly one of them based on the current
-    # UK UTC offset (BST=+0100 -> the 06:00 UTC run, GMT=+0000 -> 07:00 UTC).
-    - cron: '0 6 * * *'
-    - cron: '0 7 * * *'
+    # Several attempts across the morning because GitHub's cron is best-effort:
+    # firings can be hours late or dropped entirely. The gate step below runs
+    # the check on the FIRST firing that lands after 06:45 UK, and skips the
+    # rest (it reads the last-check date from docs/events.json). Minute :50
+    # avoids the top-of-the-hour congestion that causes the worst delays.
+    # BST: 06:50/07:50/08:50/09:50 UK; GMT: 05:50 (gated off)/06:50/07:50/08:50.
+    - cron: '50 5 * * *'
+    - cron: '50 6 * * *'
+    - cron: '50 7 * * *'
+    - cron: '50 8 * * *'
   workflow_dispatch:
     inputs:
       send_notification:
@@ -25,27 +30,43 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Gate on 07:00 UK time
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Gate on first firing after 06:45 UK
         id: gate
-        env:
-          FIRED_CRON: ${{ github.event.schedule }}
         run: |
           if [ "${{ github.event_name }}" != "schedule" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          offset=$(TZ=Europe/London date +%z)
-          if { [ "$offset" = "+0100" ] && [ "$FIRED_CRON" = "0 6 * * *" ]; } || \
-             { [ "$offset" = "+0000" ] && [ "$FIRED_CRON" = "0 7 * * *" ]; }; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "Skipping: this cron entry is the wrong one for the current UK offset ($offset)."
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          fi
+          python3 - "$GITHUB_OUTPUT" <<'PYEOF'
+          import json
+          import sys
+          from datetime import datetime, timezone
+          from zoneinfo import ZoneInfo
 
-      - name: Check out repository
-        if: steps.gate.outputs.run == 'true'
-        uses: actions/checkout@v5
+          london = ZoneInfo("Europe/London")
+          now = datetime.now(london)
+          run = True
+          if (now.hour, now.minute) < (6, 45):
+              print(f"Skipping: {now:%H:%M} UK is before the morning window opens at 06:45.")
+              run = False
+          else:
+              try:
+                  with open("docs/events.json", encoding="utf-8") as fh:
+                      updated_utc = json.load(fh)["updated_utc"]
+                  last = datetime.strptime(updated_utc, "%Y-%m-%dT%H:%M:%SZ").replace(
+                      tzinfo=timezone.utc
+                  ).astimezone(london)
+                  if last.date() == now.date():
+                      print(f"Skipping: already checked today at {last:%H:%M} UK.")
+                      run = False
+              except Exception as exc:  # missing/corrupt file: run rather than miss a day
+                  print(f"Couldn't read the last-check time ({exc}); running anyway.")
+          with open(sys.argv[1], "a", encoding="utf-8") as out:
+              out.write(f"run={'true' if run else 'false'}\n")
+          PYEOF
 
       - name: Set up Python
         if: steps.gate.outputs.run == 'true'
