@@ -8,6 +8,9 @@ on:
     # rest (it reads the last-check date from docs/events.json). Minute :50
     # avoids the top-of-the-hour congestion that causes the worst delays.
     # BST: 06:50/07:50/08:50/09:50 UK; GMT: 05:50 (gated off)/06:50/07:50/08:50.
+    # NOTE: after editing these cron entries, commit this file once more —
+    # GitHub sometimes fails to register a changed schedule until the
+    # workflow file changes again.
     - cron: '50 5 * * *'
     - cron: '50 6 * * *'
     - cron: '50 7 * * *'
