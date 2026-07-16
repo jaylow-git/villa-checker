@@ -31,8 +31,30 @@ carefully-timed firing, the workflow schedules **four attempts** (05:50,
 firing that lands after 06:45 UK, skipping the rest. "Already ran today" is
 detected from the `updated_utc` date in `docs/events.json`, which every run
 commits. This also handles BST/GMT automatically — no cron entry is tied to
-a UTC offset. If you manually run the workflow before 06:45 UK, that counts
-as the day's check and the scheduled attempts will skip.
+a UTC offset.
+
+Manual and external `workflow_dispatch` triggers go through the same gate,
+so an external scheduler can coexist with the GitHub crons without double
+notifications. Tick the **force** box on a manual run to bypass the gate
+(e.g. to re-send today's notification).
+
+### Punctual notifications via an external scheduler
+
+Even with the fallback attempts, GitHub's cron can run hours late. For a
+punctual morning notification, have an external scheduler (e.g. the free
+cron-job.org) fire the workflow at 06:50 Europe/London daily:
+
+- URL: `https://api.github.com/repos/<user>/<repo>/actions/workflows/villa-park-check.yml/dispatches`
+- Method: POST, body `{"ref":"main"}`
+- Headers: `Authorization: Bearer <fine-grained PAT>` (repo-scoped,
+  Actions read+write only), `Accept: application/vnd.github+json`,
+  `Content-Type: application/json`
+- A successful trigger returns HTTP 204.
+
+The gate then makes the late-arriving GitHub cron firings no-ops. One
+caveat learned the hard way: whenever the workflow file's cron entries are
+edited, commit the file once more (and from a real user account) or GitHub
+may silently fail to re-register the schedule.
 
 ### Ticketmaster venue ID
 
