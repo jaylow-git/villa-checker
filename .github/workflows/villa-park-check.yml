@@ -21,6 +21,10 @@ on:
         description: Send the ntfy notification (untick to only refresh events.json)
         type: boolean
         default: true
+      force:
+        description: Run even if today's check already happened
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -39,7 +43,12 @@ jobs:
       - name: Gate on first firing after 06:45 UK
         id: gate
         run: |
-          if [ "${{ github.event_name }}" != "schedule" ]; then
+          # Manual runs with the force box ticked always go ahead; everything
+          # else (schedule firings AND external workflow_dispatch triggers,
+          # e.g. cron-job.org) goes through the once-per-day gate below so
+          # multiple triggers can coexist without double notifications.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && \
+             [ "${{ inputs.force }}" = "true" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
