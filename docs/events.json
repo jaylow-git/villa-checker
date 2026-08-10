@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-08-09T05:50:29Z",
-  "updated_local": "Sun 09 Aug 2026, 06:50 BST",
+  "updated_utc": "2026-08-10T05:50:30Z",
+  "updated_local": "Mon 10 Aug 2026, 06:50 BST",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
@@ -24,28 +24,28 @@
     },
     {
       "name": "Aston Villa v Brentford FC (Premier League)",
-      "start_utc": "2026-10-10T14:00:00Z",
+      "start_utc": "2026-10-10T00:00:00Z",
       "date_local": "2026-10-10",
       "date_pretty": "Sat 10 Oct 2026",
-      "time_local": "15:00",
+      "time_local": "01:00",
       "today": false,
       "source": "football-data.org"
     },
     {
       "name": "Aston Villa v Manchester City FC (Premier League)",
-      "start_utc": "2026-10-24T14:00:00Z",
+      "start_utc": "2026-10-24T00:00:00Z",
       "date_local": "2026-10-24",
       "date_pretty": "Sat 24 Oct 2026",
-      "time_local": "15:00",
+      "time_local": "01:00",
       "today": false,
       "source": "football-data.org"
     },
     {
       "name": "Aston Villa v Fulham FC (Premier League)",
-      "start_utc": "2026-10-31T15:00:00Z",
+      "start_utc": "2026-10-31T00:00:00Z",
       "date_local": "2026-10-31",
       "date_pretty": "Sat 31 Oct 2026",
-      "time_local": "15:00",
+      "time_local": "00:00",
       "today": false,
       "source": "football-data.org"
     }
