@@ -1,10 +1,8 @@
 {
-  "updated_utc": "2026-08-24T05:50:31Z",
-  "updated_local": "Mon 24 Aug 2026, 06:50 BST",
-  "ticketmaster_venue_id": null,
-  "warnings": [
-    "couldn't check Ticketmaster"
-  ],
+  "updated_utc": "2026-08-25T05:50:32Z",
+  "updated_local": "Tue 25 Aug 2026, 06:50 BST",
+  "ticketmaster_venue_id": "KovZ9177YEf",
+  "warnings": [],
   "events": [
     {
       "name": "Aston Villa v Arsenal FC (Premier League)",
