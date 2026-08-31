@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-08-30T05:50:30Z",
-  "updated_local": "Sun 30 Aug 2026, 06:50 BST",
+  "updated_utc": "2026-08-31T05:50:32Z",
+  "updated_local": "Mon 31 Aug 2026, 06:50 BST",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
@@ -10,7 +10,7 @@
       "date_local": "2026-08-31",
       "date_pretty": "Mon 31 Aug 2026",
       "time_local": "20:00",
-      "today": false,
+      "today": true,
       "source": "football-data.org"
     },
     {
