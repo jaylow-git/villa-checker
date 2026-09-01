@@ -1,18 +1,9 @@
 {
-  "updated_utc": "2026-08-31T05:50:32Z",
-  "updated_local": "Mon 31 Aug 2026, 06:50 BST",
+  "updated_utc": "2026-09-01T05:50:33Z",
+  "updated_local": "Tue 01 Sep 2026, 06:50 BST",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
-    {
-      "name": "Aston Villa v Arsenal FC (Premier League)",
-      "start_utc": "2026-08-31T19:00:00Z",
-      "date_local": "2026-08-31",
-      "date_pretty": "Mon 31 Aug 2026",
-      "time_local": "20:00",
-      "today": true,
-      "source": "football-data.org"
-    },
     {
       "name": "Aston Villa v Nottingham Forest FC (Premier League)",
       "start_utc": "2026-09-12T14:00:00Z",
@@ -46,6 +37,15 @@
       "date_local": "2026-10-21",
       "date_pretty": "Wed 21 Oct 2026",
       "time_local": "20:00",
+      "today": false,
+      "source": "football-data.org"
+    },
+    {
+      "name": "Aston Villa v Manchester City FC (Premier League)",
+      "start_utc": "2026-10-24T11:30:00Z",
+      "date_local": "2026-10-24",
+      "date_pretty": "Sat 24 Oct 2026",
+      "time_local": "12:30",
       "today": false,
       "source": "football-data.org"
     }
