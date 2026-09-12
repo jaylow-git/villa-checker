@@ -1,8 +1,10 @@
 {
-  "updated_utc": "2026-09-11T05:50:31Z",
-  "updated_local": "Fri 11 Sep 2026, 06:50 BST",
-  "ticketmaster_venue_id": "KovZ9177YEf",
-  "warnings": [],
+  "updated_utc": "2026-09-12T05:50:30Z",
+  "updated_local": "Sat 12 Sep 2026, 06:50 BST",
+  "ticketmaster_venue_id": null,
+  "warnings": [
+    "couldn't check Ticketmaster"
+  ],
   "events": [
     {
       "name": "Aston Villa v Nottingham Forest FC (Premier League)",
@@ -10,7 +12,7 @@
       "date_local": "2026-09-12",
       "date_pretty": "Sat 12 Sep 2026",
       "time_local": "15:00",
-      "today": false,
+      "today": true,
       "source": "football-data.org"
     },
     {
