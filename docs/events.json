@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-09T05:50:30Z",
-  "updated_local": "Fri 09 Oct 2026, 06:50 BST",
+  "updated_utc": "2026-10-10T05:50:27Z",
+  "updated_local": "Sat 10 Oct 2026, 06:50 BST",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
@@ -10,7 +10,7 @@
       "date_local": "2026-10-10",
       "date_pretty": "Sat 10 Oct 2026",
       "time_local": "15:00",
-      "today": false,
+      "today": true,
       "source": "football-data.org"
     },
     {
