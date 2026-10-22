@@ -1,18 +1,9 @@
 {
-  "updated_utc": "2026-10-21T05:50:28Z",
-  "updated_local": "Wed 21 Oct 2026, 06:50 BST",
+  "updated_utc": "2026-10-22T05:50:28Z",
+  "updated_local": "Thu 22 Oct 2026, 06:50 BST",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
-    {
-      "name": "Aston Villa v Viking FK (UEFA Champions League)",
-      "start_utc": "2026-10-21T19:00:00Z",
-      "date_local": "2026-10-21",
-      "date_pretty": "Wed 21 Oct 2026",
-      "time_local": "20:00",
-      "today": true,
-      "source": "football-data.org"
-    },
     {
       "name": "Aston Villa v Manchester City FC (Premier League)",
       "start_utc": "2026-10-24T11:30:00Z",
@@ -46,6 +37,15 @@
       "date_local": "2026-12-02",
       "date_pretty": "Wed 02 Dec 2026",
       "time_local": "20:15",
+      "today": false,
+      "source": "football-data.org"
+    },
+    {
+      "name": "Aston Villa v Crystal Palace FC (Premier League)",
+      "start_utc": "2026-12-05T15:00:00Z",
+      "date_local": "2026-12-05",
+      "date_pretty": "Sat 05 Dec 2026",
+      "time_local": "15:00",
       "today": false,
       "source": "football-data.org"
     }
