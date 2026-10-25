@@ -1,18 +1,9 @@
 {
-  "updated_utc": "2026-10-24T05:50:30Z",
-  "updated_local": "Sat 24 Oct 2026, 06:50 BST",
+  "updated_utc": "2026-10-25T06:50:30Z",
+  "updated_local": "Sun 25 Oct 2026, 06:50 GMT",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
-    {
-      "name": "Aston Villa v Manchester City FC (Premier League)",
-      "start_utc": "2026-10-24T11:30:00Z",
-      "date_local": "2026-10-24",
-      "date_pretty": "Sat 24 Oct 2026",
-      "time_local": "12:30",
-      "today": true,
-      "source": "football-data.org"
-    },
     {
       "name": "Aston Villa v Fulham FC (Premier League)",
       "start_utc": "2026-10-31T20:00:00Z",
@@ -46,6 +37,15 @@
       "date_local": "2026-12-05",
       "date_pretty": "Sat 05 Dec 2026",
       "time_local": "15:00",
+      "today": false,
+      "source": "football-data.org"
+    },
+    {
+      "name": "Aston Villa v Paris Saint-Germain FC (UEFA Champions League)",
+      "start_utc": "2026-12-08T20:00:00Z",
+      "date_local": "2026-12-08",
+      "date_pretty": "Tue 08 Dec 2026",
+      "time_local": "20:00",
       "today": false,
       "source": "football-data.org"
     }
