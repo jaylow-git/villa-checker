@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-11-20T06:50:34Z",
-  "updated_local": "Fri 20 Nov 2026, 06:50 GMT",
+  "updated_utc": "2026-11-21T06:50:34Z",
+  "updated_local": "Sat 21 Nov 2026, 06:50 GMT",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
@@ -10,7 +10,7 @@
       "date_local": "2026-11-21",
       "date_pretty": "Sat 21 Nov 2026",
       "time_local": "15:00",
-      "today": false,
+      "today": true,
       "source": "football-data.org"
     },
     {
