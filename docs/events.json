@@ -1,18 +1,9 @@
 {
-  "updated_utc": "2026-11-21T06:50:34Z",
-  "updated_local": "Sat 21 Nov 2026, 06:50 GMT",
+  "updated_utc": "2026-11-22T06:50:40Z",
+  "updated_local": "Sun 22 Nov 2026, 06:50 GMT",
   "ticketmaster_venue_id": "KovZ9177YEf",
   "warnings": [],
   "events": [
-    {
-      "name": "Aston Villa v Sunderland AFC (Premier League)",
-      "start_utc": "2026-11-21T15:00:00Z",
-      "date_local": "2026-11-21",
-      "date_pretty": "Sat 21 Nov 2026",
-      "time_local": "15:00",
-      "today": true,
-      "source": "football-data.org"
-    },
     {
       "name": "Aston Villa v Everton FC (Premier League)",
       "start_utc": "2026-12-02T20:15:00Z",
@@ -46,6 +37,15 @@
       "date_local": "2026-12-26",
       "date_pretty": "Sat 26 Dec 2026",
       "time_local": "12:30",
+      "today": false,
+      "source": "football-data.org"
+    },
+    {
+      "name": "Aston Villa v Liverpool FC (Premier League)",
+      "start_utc": "2026-12-30T20:15:00Z",
+      "date_local": "2026-12-30",
+      "date_pretty": "Wed 30 Dec 2026",
+      "time_local": "20:15",
       "today": false,
       "source": "football-data.org"
     }
